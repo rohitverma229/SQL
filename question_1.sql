@@ -30,6 +30,9 @@ from dept inner join employees
 on employees.deptno = dept.deptno
 order by ename;
 
+select distinct employees.eno, employees.ename, employees.deptno, dept.dname
+from employees 
+left outer join dept
+on employees.deptno = dept.deptno
+group by dname;
 
-select employees.ename
-from employees where deptno is null;
