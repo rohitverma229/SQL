@@ -1,43 +1,23 @@
-create table maintable
+-- Query that give how many inactive recorde are there for an employee
+
+create table emp_status
 (
-	company char(5) not null,
-    accoutnt varchar(5) not null,
-    acti_status varchar(10) not null
+	eno int not null,
+    first_name varchar(10) not null,
+    last_name varchar(10) not null,
+    act_i varchar (5) not null
 );
 
-alter table maintable 
-change accoutnt account varchar(5) not null;
+insert into emp_status
+(eno, first_name, last_name, act_i)
+values(1, 'Rajesh','verma','N'),
+(1, 'Rajesh','verma','N'),
+(1, 'Rajesh','verma','Y'),
+(1, 'Rajesh','verma','N'),
+(2, 'Rohit','verma','Y');
 
-insert into maintable 
-(company, account, acti_status)
-values
-('A','A123', 'Active'),
-('A','A123', 'Inactive'),
-('B','B123', 'Inactive');
+select * from emp_status;
 
-select * from maintable;
-
-create table ref_table
-(
-	rcompany char(5) not null, 
-    raccount varchar(5) not null
-);
-
-insert into ref_table
-(rcompany, raccount)
-values
-('A', 'A123'),
-('B', 'B123'),
-('C', 'C123');
-
-select * from ref_table;
-
-select ref_table.*, M1.acti_status
-from ref_table
-inner join maintable as M1
-		on M1.company = ref_table.rcompany
-		and M1.account = ref_table.raccount and M1.acti_status = 'inactive'
-left join maintable as M2 on M2.company = ref_table.rcompany
-                   and M2.account = ref_table.raccount -- or no active account at all?
-                   and M2.acti_status  = 'active'
-WHERE  M2.company IS NULL;
+select A.eno, A.first_name, A.last_name, A.act_i, count(*) as statuss
+from emp_status as A
+where A.act_i = 'N' and A.eno = 1 ;
