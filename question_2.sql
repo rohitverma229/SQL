@@ -39,15 +39,14 @@
  (4, 'Human Resource'),
  (5, 'Sales');
  
+ 
+ select distinct employees_1.emp_id, employees_1.emp_name, 
+ employees_1.salary, employees_1.dept_id, dept_1.dept_name,
+ AVG(employees_1.salary) as avarage, MAX(employees_1.salary) as maximum
+ from employees_1 
+ left outer join dept_1
+ on employees_1.dept_id = dept_1.dept_id
+ group by emp_name
+ order by employees_1.salary desc limit 4;
 
-select distinct dept_1.dept_name, employees_1.emp_id, employees_1.emp_name, employees_1.salary
-from employees_1
-inner join dept_1 on employees_1.dept_id = dept_1.dept_id
-inner join
-	(
-		select employees_1.dept_id, max(employees_1.salary) sal /* avg(employees_1.salary) sal */
-		from employees_1
-		group by employees_1.dept_id
-	) ss on employees_1.dept_id = ss.dept_id and employees_1.salary = ss.sal
-order by employees_1.salary desc limit 2;
 
