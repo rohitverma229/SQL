@@ -1,3 +1,5 @@
+-- insurance percentage calculation
+
 create table insurance
 (
 	ins_id int not null,
@@ -10,17 +12,15 @@ values(1, 100), (2, 101), (3, 125), (4, 104), (5, 106);
 
 select * from insurance;
 
-select distinct insurance.ins_ammount , ((ins_ammount/100)*33) as premium 
-from insurance where ins_id = 1;
+select distinct insurance.ins_id, 
+sum(((insurance.ins_ammount/100)*33)) as premium, 
+sum(((insurance.ins_ammount/100)*32)) as brokerage,
+sum(((insurance.ins_ammount/100)*34)) as admins
+from insurance
+group by ins_id;
 
 
 
-union all
-select distinct insurance.ins_ammount , ((ins_ammount/100)*32) as brokerage
-from insurance where ins_id = 1 
-union all
-select distinct insurance.ins_ammount , ((ins_ammount/100)*34) as admin
-from insurance where ins_id = 1;
 
 
 
