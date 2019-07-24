@@ -12,12 +12,19 @@ values(1, 100), (2, 101), (3, 125), (4, 104), (5, 106);
 
 select * from insurance;
 
-select distinct insurance.ins_id, 
-sum(((insurance.ins_ammount/100)*33)) as premium, 
-sum(((insurance.ins_ammount/100)*32)) as brokerage,
-sum(((insurance.ins_ammount/100)*34)) as admins
+select distinct insurance.ins_id, insurance.ins_ammount,    
+cast((insurance.ins_ammount/100)*33 as signed) as premium, 
+cast((insurance.ins_ammount/100)*32 as signed) as brokerage,
+	(
+		select insurance.ins_ammount-(premium + brokerage 
+        + (cast((insurance.ins_ammount/100)*35 as signed))) 
+        + (cast((insurance.ins_ammount/100)*35 as signed)) 
+	) as admins
 from insurance
 group by ins_id;
+
+
+
 
 
 
