@@ -40,13 +40,13 @@
  (5, 'Sales');
  
  
- select distinct employees_1.emp_id, employees_1.emp_name, 
+ select  employees_1.emp_id, employees_1.emp_name, 
  employees_1.salary, employees_1.dept_id, dept_1.dept_name,
  AVG(employees_1.salary) as avarage, MAX(employees_1.salary) as maximum
  from employees_1 
  left outer join dept_1
  on employees_1.dept_id = dept_1.dept_id
- group by emp_name
+ group by dept_id
  order by employees_1.salary desc limit 4;
 
 
