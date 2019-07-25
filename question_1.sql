@@ -2,7 +2,7 @@
 
 create table Employees 
 (
-	eno int not null,
+    eno int not null,
     ename varchar(15) not null,
     departno int 
 );
@@ -15,7 +15,7 @@ select * from employees;
 
 create table dept
 (
-	deptno int not null,
+    deptno int not null,
     dname varchar(15) not null
 );
 
