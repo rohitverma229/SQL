@@ -1,47 +1,24 @@
-create table assemblies
+create table insurance
 (
-	Aid int not null,
-    Aname varchar(10) not null
+	ins_id int not null,
+    ins_ammount int(8) not null
 );
 
-insert into assemblies
-(Aid, Aname)
-values
-(1, 'assem X'),
-(2, 'assem Y'),
-(3, 'assem Z');
+insert into insurance
+(ins_id, ins_ammount)
+values(1, 100), (2, 101), (3, 125), (4, 104), (5, 106);
 
-create table parts
-(
-	Pid int not null,
-    Pname varchar(10) not null,
-    Aid int not null
-);
+select * from insurance;
 
-insert into parts
-(Pid, Pname, Aid)
-values(1, 'part A', 1),
-(2, 'part B', 1),
-(3, 'part C', 1),
-(4, 'part D', 1),
-(5, 'part A', 2),
-(6, 'part B', 2),
-(7, 'part C', 3),
-(8, 'part D', 3);
+select insurance.ins_id, insurance.ins_ammount,    
+cast((insurance.ins_ammount/100)*33 as signed) as premium, 
+cast((insurance.ins_ammount/100)*32 as signed) as brokerage,
+	(
+		select insurance.ins_ammount-(premium + brokerage 
+        + (cast((insurance.ins_ammount/100)*35 as signed))) 
+        + (cast((insurance.ins_ammount/100)*35 as signed)) 
+	) as admins
+from insurance;
 
-select A.*, P.*
-from assemblies A
-left join parts P using (Aid);
 
-SELECT A.*, p.* 
-FROM assemblies A
-LEFT JOIN parts P USING (Aid)
-WHERE P.Pname='Part B';
 
-SELECT A.*, P.* 
-FROM assemblies A
-LEFT JOIN parts P USING (Aid)
-WHERE P.Aid IN 
-  (
-    SELECT Aid FROM parts WHERE Pname = 'Part B'
-  );
