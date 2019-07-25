@@ -20,4 +20,4 @@ select * from emp_status;
 
 select A.eno, A.first_name, A.last_name, A.act_i, count(*) as statuss
 from emp_status as A
-where A.act_i = 'N' and A.eno = 1 ;
+where A.act_i = 'N' and A.eno = 1;
