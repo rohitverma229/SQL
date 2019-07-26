@@ -9,15 +9,19 @@ insert into nested_category
 values
 (1,'M',null),(2,'C1',1),(3,'C2',1),
 (4,'C3',1),(5,'C4',1),(6,'C5',2),
-(7,'C6',2),(8,'C7',2),(9,'C8',1),(10,'C9',3),
-(11,'C10',3),(12,'C11',6),(13,'C12',6),(14,'C13',6),
-(15,'C14',6),(16,'C15',4),(17,'C16',4),(18,'C17',4);
-
+(7,'C6',2),(8,'C7',2),(9,'C8',3),(10,'C9',5),
+(11,'C10',5),(12,'C11',2),(13,'C12',2),(14,'C13',2),
+(15,'C14',2),(16,'C15',5),(17,'C16',5),(18,'C17',5);
 truncate table nested_category;
 
-select distinct t1.name as lev1, t2.name as lev2, t3.name as lev3, t4.name as lev4
-from nested_category as t1
-left join nested_category as t2 on t2.parent_id = t1.category_id
-left join nested_category as t3 on t3.parent_id = t2.category_id
-left join nested_category as t4 on t4.parent_id = t3.category_id
-where t1.name = 'C2';
+		
+select * from nested_category;
+
+select a.name,b.name,c.name from nested_category a
+left join nested_category b on a.category_id=b.parent_id
+left join nested_category c on b.category_id=c.parent_id
+where a.name='M';
+
+select a.name,b.name from nested_category a
+join nested_category b on a.category_id=b.parent_id
+where a.name='M'
